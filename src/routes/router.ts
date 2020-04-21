@@ -1,16 +1,31 @@
 import { Router, Request, Response } from 'express';
-import Server from '../classes/server';
+import Server from '../server/server';
 import { usuariosConectados } from '../sockets/socket';
+import MySql from '../mysql/mysql';
+import { verificaToken } from '../middlewares/autentication';
 
 
 const router = Router();
 
 // ================= get / =======================
-router.get('/', (req: Request, res: Response) => {
-    res.json({
-        ok: true,
-        mensaje: 'Api rest con node'
-    })
+router.get('/', verificaToken, (req: Request, res: Response) => {
+    
+    const query = `
+    SELECT * FROM test_user`;
+
+    MySql.ejecutarQuery(query, (err: any, usuarios: Object[]) => {
+        if ( err ) {
+            res.status(400).json({
+                ok: false,
+                error: err
+            });
+        } else {
+            res.json({
+                ok: true,
+                usuarios
+            })
+        }
+    });
 });
 
 router.get('/mensajes', (req: Request, res: Response) => {

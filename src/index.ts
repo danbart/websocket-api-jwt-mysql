@@ -1,8 +1,8 @@
-import Server from './classes/server';
+import Server from './server/server';
 import router from './routes/router';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import MySql from './classes/mysql';
+import MySql from './mysql/mysql';
 
 
 const server = Server.instance;
