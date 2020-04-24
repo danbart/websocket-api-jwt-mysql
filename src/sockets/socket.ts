@@ -1,13 +1,13 @@
 import { Socket } from "socket.io";
 import socketIO from 'socket.io';
-import { UsuariosLista } from '../classes/usuarios-lista';
-import { Usuario } from '../classes/usuario';
+import { Usuarios } from '../classes/usuarios';
+import { Usuario } from '../models/usuario';
 
-export const usuariosConectados = new UsuariosLista();
+export const usuariosConectados = new Usuarios();
 
 export const conectarCliente = ( cliente: Socket, io:socketIO.Server ) => {
-    const usuario = new Usuario( cliente.id );
-    usuariosConectados.agregar( usuario );
+    // const usuario = new Usuario( cliente.id );
+    // usuariosConectados.agregar( usuario );
     
 }
 
@@ -36,7 +36,7 @@ export const mensaje = (cliente: Socket, io: socketIO.Server) => {
 export const configurarUsuario = (cliente: Socket, io: socketIO.Server ) => {
     cliente.on('configurar-usuario', (payload: { nombre: string }, callback: Function) => {
 
-        usuariosConectados.actualizarNombre(cliente.id, payload.nombre);
+        // usuariosConectados.actualizarNombre(cliente.id, payload.nombre);
 
         io.emit('usuarios-activos', usuariosConectados.getLista());
 
@@ -52,7 +52,7 @@ export const obtenerUsuarios = (cliente: Socket,  io: socketIO.Server ) => {
 
     cliente.on('obtener-usuarios', () => {
         // Mandamos la información a la persona que lo esta solicitando
-        io.to( cliente.id ).emit('usuarios-activos', usuariosConectados.getLista());
+        // io.to( cliente.id ).emit('usuarios-activos', usuariosConectados.getLista());
     })
 
 }

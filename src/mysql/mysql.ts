@@ -32,12 +32,12 @@ export default class MySql {
     
     // funcion par ahacer consultas
     static ejecutarQuery( query: string, callback: Function ) {
-        this.instances.cnn.query(query, (err, results: Object[], fields ) => {
+        return this.instances.cnn.query(query, (err, results: Object[], fields ) => {
 
             if ( err ) {
                 console.log("Error en query");
-                console.log(err);
-                return callback( err );
+                console.log(err.sqlMessage);
+                return callback( err.sqlMessage );
             }
 
             if ( results.length === 0 ) {
@@ -54,7 +54,7 @@ export default class MySql {
         this.cnn.connect((err: mysql.MysqlError) => {
 
             if ( err ) {
-                console.log(err.message);
+                console.log(err.sqlMessage);
                 return;
             }
 

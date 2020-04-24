@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { SEED } from '../global/environment';
 
@@ -7,12 +8,11 @@ import { SEED } from '../global/environment';
 
 //request, respuesta y next que indica que el programa continue
 
-export const verificaToken = ( req, res, next) =>{
-
+export const verificaToken = ( req: Request, res: Response, next: CallableFunction) =>{
     // obtiene token
-    const token = req.get('Authorization');
+    const token = req.get('Authorization') || '';
 
-    jwt.verify(token, SEED, (err, decoded) =>{
+    jwt.verify(token, SEED, (err: any, decoded: any) =>{
         if(err) {
             return res.status(401).json({
                 ok: false,
@@ -22,7 +22,7 @@ export const verificaToken = ( req, res, next) =>{
             })
         }
 
-        req.usuario = decoded.usuario;
+        // req.usuario = decoded.usuario;
         next();
     });
 }
