@@ -38,7 +38,7 @@ router.get('/usuario/', /*verificaToken,*/ async (req: Request, res: Response) =
 
                   
 });
-
+// TODO: validar el email
 router.post('/usuario/', validate(registerValidator), async (req: Request, res: Response) => {
     
     const body = req.body;

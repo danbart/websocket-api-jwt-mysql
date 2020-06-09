@@ -35,7 +35,7 @@ export class Usuarios {
 
     }
 
-    // Obtener lista de usuarios
+    // Obtener lista de usuarios y usuario dependiendo el caso
     public getLista = (user?: number) =>  {
         const query = `
         SELECT user_id, user_name, user_surname,user_role,user_estado,
@@ -45,17 +45,6 @@ export class Usuarios {
         if(user) return query + ` where user_id=${user}`;
 
         return query;
-
-    }
-
-    // Obtenemos un usuario
-    public getUsuario = async ( id: string ) => {
-
-        
-
-        // return await this.getLista().then(() => {
-        //     return this.lista.find(user => user.user_id == Number(id));
-        // });
 
     }
 
